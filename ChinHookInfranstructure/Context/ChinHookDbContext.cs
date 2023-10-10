@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ChinHookInfranstructure.Context
 {
-    public partial class ChinHookDbContext : DbContext
+    public partial class ChinHookDbContext :  IdentityDbContext<ChinookUser>
     {
 
         public ChinHookDbContext(DbContextOptions<ChinHookDbContext> options)

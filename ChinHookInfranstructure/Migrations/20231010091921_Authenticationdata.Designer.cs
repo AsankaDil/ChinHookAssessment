@@ -4,6 +4,7 @@ using ChinHookInfranstructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChinHookInfranstructure.Migrations
 {
     [DbContext(typeof(ChinHookDbContext))]
-    partial class ChinHookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231010091921_Authenticationdata")]
+    partial class Authenticationdata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
