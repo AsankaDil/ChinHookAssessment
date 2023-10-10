@@ -14,6 +14,11 @@
     <None Include="Pages\Index.razor" />
     <None Include="Pages\_Host.cshtml" />
     <None Include="Pages\_Layout.cshtml" />
+    <None Include="Shared\Components\Loading.razor" />
+    <None Include="Shared\Components\Modal.razor" />
+    <None Include="Shared\MainLayout.razor" />
+    <None Include="Shared\NavMenu.razor" />
+    <None Include="Shared\SurveyPrompt.razor" />
   </ItemGroup>
 
   <ItemGroup>
