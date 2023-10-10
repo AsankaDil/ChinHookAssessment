@@ -17,6 +17,7 @@ builder.Services.AddDbContext<ChinHookDbContext>(options =>
 
 builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
 builder.Services.AddScoped<ITrackRepository, TrackRepository>();
+builder.Services.AddScoped<IPlayListRepository, PlayListRepository>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
