@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34018.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChinHookCore", "ChinHookCore", "{3A3F33DE-3A5D-40A5-8D4E-69D5F819D485}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{C0B4D58B-6DF4-48E2-8F19-778D8BAE2A78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{B8BF8306-A6CB-40AD-8551-A42BF006D6DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChinHookInfranstructure", "ChinHookInfranstructure", "{CBEAC37D-0916-410F-95FD-0AA2355543AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinHookInfranstructure", "ChinHookInfranstructure\ChinHookInfranstructure.csproj", "{5707BE2D-AE5E-4A9B-9A83-5150074647DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChinHook", "ChinHook", "{7D5B4200-0FA4-4B03-A8E5-76DDFF4C55B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinHook", "ChinHook\ChinHook.csproj", "{62AEE4C9-C271-4C4A-91E8-6BD650BE6E23}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0B4D58B-6DF4-48E2-8F19-778D8BAE2A78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0B4D58B-6DF4-48E2-8F19-778D8BAE2A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0B4D58B-6DF4-48E2-8F19-778D8BAE2A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0B4D58B-6DF4-48E2-8F19-778D8BAE2A78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8BF8306-A6CB-40AD-8551-A42BF006D6DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8BF8306-A6CB-40AD-8551-A42BF006D6DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8BF8306-A6CB-40AD-8551-A42BF006D6DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8BF8306-A6CB-40AD-8551-A42BF006D6DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5707BE2D-AE5E-4A9B-9A83-5150074647DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5707BE2D-AE5E-4A9B-9A83-5150074647DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5707BE2D-AE5E-4A9B-9A83-5150074647DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5707BE2D-AE5E-4A9B-9A83-5150074647DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62AEE4C9-C271-4C4A-91E8-6BD650BE6E23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62AEE4C9-C271-4C4A-91E8-6BD650BE6E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62AEE4C9-C271-4C4A-91E8-6BD650BE6E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62AEE4C9-C271-4C4A-91E8-6BD650BE6E23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C0B4D58B-6DF4-48E2-8F19-778D8BAE2A78} = {3A3F33DE-3A5D-40A5-8D4E-69D5F819D485}
+		{B8BF8306-A6CB-40AD-8551-A42BF006D6DF} = {3A3F33DE-3A5D-40A5-8D4E-69D5F819D485}
+		{5707BE2D-AE5E-4A9B-9A83-5150074647DA} = {CBEAC37D-0916-410F-95FD-0AA2355543AC}
+		{62AEE4C9-C271-4C4A-91E8-6BD650BE6E23} = {7D5B4200-0FA4-4B03-A8E5-76DDFF4C55B2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9360728E-7082-4305-9201-E427A315F94F}
+	EndGlobalSection
+EndGlobal
