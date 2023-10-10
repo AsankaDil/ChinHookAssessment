@@ -1,9 +1,57 @@
 ﻿@page "/"
+@attribute [Authorize]
+@using Application.Repositories;
+@using Domain.Entities;
+@using Microsoft.EntityFrameworkCore
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Artists</h1>
 
-Welcome to your new app.
+@if (Artists == null)
+{
+    <Loading />
+}
+else
+{
+    <table class="table table-striped table-hover table-sm">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Number of albums</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var artist in Artists)
+            {
+                <tr>
+                    <td><a href="Artist/@artist.ArtistId">@artist.Name</a></td>
+                    <td>@artist.Albums.Count()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code {
+    [Inject]
+    public IArtistRepository artistRepository { get; set; }
+
+
+    [Inject]
+    public ITrackRepository trackRepository { get; set; }
+    private List<Artist> Artists;
+
+    protected override async Task OnInitializedAsync() {
+        await InvokeAsync(StateHasChanged);
+        Artists = await GetArtists();
+    }
+
+    public async Task<List<Artist>> GetArtists()
+    {
+        return await artistRepository.GetAllAsync();
+
+    }
+
+    
+}

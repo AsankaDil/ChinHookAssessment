@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Application.Repositories;
 using ChinHookInfranstructure.Context;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChinHookInfranstructure.Repositories
 {
@@ -29,9 +30,9 @@ namespace ChinHookInfranstructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<List<Artist>> GetAllAsync()
+        public async Task<List<Artist>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Artists.ToListAsync();
         }
 
         public async Task<Artist> GetByIdAsync(long id)

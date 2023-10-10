@@ -3,7 +3,7 @@
 @using Application.Repositories;
 @using ChinHook.Shared.Components;
 @using Domain.Entities;
-using Domain.Entities;
+@using System.Security.Claims;
 
 @if (!string.IsNullOrWhiteSpace(InfoMessage))
 {
@@ -24,15 +24,15 @@ using Domain.Entities;
 else
 {
     <h1>@Artist.Name</h1>
-        <table class="table table-striped table-hover table-sm">
-            <thead>
-                <tr>
-                    <th>Album title</th>
-                    <th>Track name</th>
-                    <th></th>
+    <table class="table table-striped table-hover table-sm">
+        <thead>
+            <tr>
+                <th>Album title</th>
+                <th>Track name</th>
+                <th></th>
             </tr>
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
             @foreach (var track in Tracks)
             {
                 <tr>
@@ -51,15 +51,15 @@ else
                     </td>
                 </tr>
             }
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 
 }
 
-@code{
+@code {
     [Parameter]
     public long ArtistId { get; set; }
-
+    [CascadingParameter] private Task<AuthenticationState> authenticationState { get; set; }
     public Modal PlaylistDialog { get; set; }
 
     public Artist Artist;
@@ -79,14 +79,14 @@ else
 
     private async Task<string> GetUserId()
     {
-        //var user = (await authenticationState).User;
-        var userId = "1"; //user.FindFirst(u => u.Type.Contains(ClaimTypes.NameIdentifier))?.Value;
+        var user = (await authenticationState).User;
+        var userId = user.FindFirst(u => u.Type.Contains(ClaimTypes.NameIdentifier))?.Value;
         return userId;
     }
 
     protected override async Task OnInitializedAsync()
     {
-
+        await InvokeAsync(StateHasChanged);
         CurrentUserId = await GetUserId();
 
         Artist = await artistRepository.GetByIdAsync(ArtistId);
