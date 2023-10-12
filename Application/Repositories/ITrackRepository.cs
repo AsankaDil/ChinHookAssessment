@@ -9,6 +9,8 @@ namespace Application.Repositories
 {
     public interface ITrackRepository : IGenericRepository<Track>
     {
-        List<Track> GetTracksWithAlbums();
+        Task<List<Track>> GetTracksWithAlbumsAsync();
+        Task<bool> SaveTrackToPlayListAsync(string userId, long trackId, string playListName);
+        Task<List<Track>> GetFavouriteTracksAsync(string userId);
     }
 }

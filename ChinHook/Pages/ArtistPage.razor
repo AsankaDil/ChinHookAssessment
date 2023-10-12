@@ -60,22 +60,35 @@ else
     [Parameter]
     public long ArtistId { get; set; }
     [CascadingParameter] private Task<AuthenticationState> authenticationState { get; set; }
-    public Modal PlaylistDialog { get; set; }
+    private Modal PlaylistDialog { get; set; }
 
-    public Artist Artist;
-    //public List<PlaylistTrack> Tracks;
-    public List<PlaylistTrack> Tracks { get; set; } = new List<PlaylistTrack>();
+    private Artist Artist;
 
-    public PlaylistTrack SelectedTrack;
-    public string InfoMessage;
-    public string CurrentUserId;
+    private List<PlaylistTrack> Tracks { get; set; } = new List<PlaylistTrack>();
+
+    private PlaylistTrack SelectedTrack;
+    private string InfoMessage;
+    private string CurrentUserId;
+    private long ExistingPlayListId;
+    private string selectedValue = "1";
+    private string NewPlayListName = "";
+
+  
+    private List<ExistingPlayList> ExistingPlayLists { get; set; } = new List<ExistingPlayList>();
 
     [Inject]
-    public IArtistRepository artistRepository { get; set; }
-
+    private IArtistRepository artistRepository { get; set; }
 
     [Inject]
-    public ITrackRepository trackRepository { get; set; }
+    private ITrackRepository trackRepository { get; set; }
+
+    [Inject]
+    private IPlayListRepository playListRepository { get; set; }
+
+    private void OnRadioSelected(string value)
+    {
+        selectedValue = value;
+    }
 
     private async Task<string> GetUserId()
     {
@@ -91,8 +104,9 @@ else
 
         Artist = await artistRepository.GetByIdAsync(ArtistId);
 
-        Tracks = trackRepository.GetTracksWithAlbums()
-            .Select(t => new PlaylistTrack()
+        var result = await trackRepository.GetTracksWithAlbumsAsync();
+
+        Tracks = result.Select(t => new PlaylistTrack()
                 {
                     AlbumTitle = (t.Album == null ? "-" : t.Album.Title),
                     TrackId = t.TrackId,
@@ -105,6 +119,7 @@ else
     public void FavoriteTrack(long trackId)
     {
         var track = Tracks.FirstOrDefault(t => t.TrackId == trackId);
+        trackRepository.SaveTrackToPlayListAsync(CurrentUserId, trackId, "Favorites");
         InfoMessage = $"Track {track.ArtistName} - {track.AlbumTitle} - {track.TrackName} added to playlist Favorites.";
     }
 
@@ -114,8 +129,16 @@ else
         InfoMessage = $"Track {track.ArtistName} - {track.AlbumTitle} - {track.TrackName} removed from playlist Favorites.";
     }
 
-    public void OpenPlaylistDialog(long trackId)
+    public async void OpenPlaylistDialog(long trackId)
     {
+        var result = await playListRepository.GetUserPlayListAsync(CurrentUserId);
+
+        ExistingPlayLists = result.Select(t => new ExistingPlayList()
+            {
+                PlaylistId = t.PlaylistId,
+                Name = t.Name
+            }).ToList();
+
         CloseInfoMessage();
         SelectedTrack = Tracks.FirstOrDefault(t => t.TrackId == trackId);
         PlaylistDialog.Open();
@@ -124,6 +147,7 @@ else
     public void AddTrackToPlaylist()
     {
         CloseInfoMessage();
+        trackRepository.SaveTrackToPlayListAsync(CurrentUserId, SelectedTrack.TrackId, NewPlayListName);
         InfoMessage = $"Track {Artist.Name} - {SelectedTrack.AlbumTitle} - {SelectedTrack.TrackName} added to playlist {{playlist name}}.";
         PlaylistDialog.Close();
     }
@@ -147,18 +171,34 @@ else
             </div>
         }
 
+        <div>
+            <label>
+                <input type="radio" name="options" value="1" checked=@(selectedValue == "1") @onchange="@(()=> OnRadioSelected("1"))" /> Add to Existing
+            </label>
+
+            <label>
+                <input type="radio" name="options" value="2" checked=@(selectedValue == "2") @onchange="@(()=> OnRadioSelected("2"))" /> Create New
+            </label>
+        </div>
+
+        @if(@selectedValue=="1"){
         <div class="form-group mb-2">
             <label for="ExistingPlaylist">Add to existing playlist</label>
-            <select class="form-control" id="ExistingPlaylist">
-                <option>Playlist 1</option>
-                <option>Playlist 2</option>
-                <option>Playlist 3</option>
+                <select class="form-control" id="ExistingPlaylist" @bind="ExistingPlayListId">
+                    <option value="">Select an item</option>
+                    @foreach (var item in ExistingPlayLists)
+                    {
+                        <option value="@item.PlaylistId">@item.Name</option>
+                    }
             </select>
         </div>
+        }
+        else{
         <div class="form-group mb-2">
             <label for="NewPlaylist">Create new playlist</label>
-            <input type="text" id="NewPlaylist" class="form-control" placeholder="Name for the new playlist">
+                <input type="text" id="NewPlaylist" class="form-control" @bind="NewPlayListName" placeholder="Name for the new playlist">
         </div>
+        }
     </Body>
     <Footer>
         <button class="btn btn-success" @onclick="AddTrackToPlaylist">Save</button>

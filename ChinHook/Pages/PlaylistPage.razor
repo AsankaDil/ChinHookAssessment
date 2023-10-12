@@ -62,7 +62,8 @@ else
 }
 
 @code {
-    [Parameter] public long PlaylistId { get; set; }
+    [Parameter]
+    public long PlaylistId { get; set; }
 
     [CascadingParameter] private Task<AuthenticationState> authenticationState { get; set; }
 

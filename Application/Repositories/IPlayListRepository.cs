@@ -9,5 +9,8 @@ namespace Application.Repositories
 {
     public interface IPlayListRepository:IGenericRepository<Playlist>
     {
+        Playlist GetUserPlayListByName(string name, string userId);
+        Task<bool> SavePlayListTracksAsync(Playlist entity,bool isNewPlayList);
+        Task<List<Playlist>> GetUserPlayListAsync(string userId);
     }
 }

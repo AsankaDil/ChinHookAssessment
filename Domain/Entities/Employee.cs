@@ -16,8 +16,8 @@ namespace Domain.Entities
         public string FirstName { get; set; } = null!;
         public string? Title { get; set; }
         public long? ReportsTo { get; set; }
-        public DateTimeOffset? BirthDate { get; set; }
-        public DateTimeOffset? HireDate { get; set; }
+        public byte[]? BirthDate { get; set; }
+        public byte[]? HireDate { get; set; }
         public string? Address { get; set; }
         public string? City { get; set; }
         public string? State { get; set; }

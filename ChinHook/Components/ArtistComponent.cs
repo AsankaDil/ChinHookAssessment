@@ -45,8 +45,8 @@ namespace ChinHook.Components
 
             Artist = await artistRepository.GetByIdAsync(ArtistId);
 
-            Tracks =   trackRepository.GetTracksWithAlbums()
-                .Select(t => new PlaylistTrack()
+            var result = await trackRepository.GetTracksWithAlbumsAsync();
+            Tracks = result.Select(t => new PlaylistTrack()
                 {
                     AlbumTitle = (t.Album == null ? "-" : t.Album.Title),
                     TrackId = t.TrackId,

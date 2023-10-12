@@ -9,11 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ChinHookDbContext>(options =>
-{
-    var connectionString = builder.Configuration.GetConnectionString("ChinHook");
-    options.UseSqlServer(connectionString);
-});
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContextFactory<ChinHookDbContext>(opt => opt.UseSqlite(connectionString));
 
 builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
 builder.Services.AddScoped<ITrackRepository, TrackRepository>();

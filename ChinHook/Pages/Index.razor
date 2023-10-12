@@ -14,6 +14,10 @@
 }
 else
 {
+    <div class="form-group mb-2">
+        <label for="NewPlaylist">Search</label>
+        <input type="text" id="SerachArtist" @bind:event="oninput" class="form-control" @bind="SerachArtist" placeholder="Search...">
+    </div>
     <table class="table table-striped table-hover table-sm">
         <thead>
             <tr>
@@ -22,7 +26,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var artist in Artists)
+            @foreach (var artist in FilteredArtist)
             {
                 <tr>
                     <td><a href="Artist/@artist.ArtistId">@artist.Name</a></td>
@@ -36,7 +40,7 @@ else
 @code {
     [Inject]
     public IArtistRepository artistRepository { get; set; }
-
+    private string SerachArtist = "";
 
     [Inject]
     public ITrackRepository trackRepository { get; set; }
@@ -46,6 +50,11 @@ else
         await InvokeAsync(StateHasChanged);
         Artists = await GetArtists();
     }
+
+    private List<Artist> FilteredArtist =>
+        string.IsNullOrWhiteSpace(SerachArtist)
+            ? Artists
+            : Artists.Where(item => item.Name.Contains(SerachArtist, StringComparison.OrdinalIgnoreCase)).ToList();
 
     public async Task<List<Artist>> GetArtists()
     {

@@ -5,17 +5,17 @@ VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChinHookCore", "ChinHookCore", "{3A3F33DE-3A5D-40A5-8D4E-69D5F819D485}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{C0B4D58B-6DF4-48E2-8F19-778D8BAE2A78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{C0B4D58B-6DF4-48E2-8F19-778D8BAE2A78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{B8BF8306-A6CB-40AD-8551-A42BF006D6DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{B8BF8306-A6CB-40AD-8551-A42BF006D6DF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChinHookInfranstructure", "ChinHookInfranstructure", "{CBEAC37D-0916-410F-95FD-0AA2355543AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinHookInfranstructure", "ChinHookInfranstructure\ChinHookInfranstructure.csproj", "{5707BE2D-AE5E-4A9B-9A83-5150074647DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChinHookInfranstructure", "ChinHookInfranstructure\ChinHookInfranstructure.csproj", "{5707BE2D-AE5E-4A9B-9A83-5150074647DA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChinHook", "ChinHook", "{7D5B4200-0FA4-4B03-A8E5-76DDFF4C55B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinHook", "ChinHook\ChinHook.csproj", "{62AEE4C9-C271-4C4A-91E8-6BD650BE6E23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChinHook", "ChinHook\ChinHook.csproj", "{62AEE4C9-C271-4C4A-91E8-6BD650BE6E23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

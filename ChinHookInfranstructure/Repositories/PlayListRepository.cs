@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,9 +20,11 @@ namespace ChinHookInfranstructure.Repositories
         {
             _dbContext = dbContext;
         }
-        public Task<Playlist> AddAsync(Domain.Entities.Playlist entity)
+        public async Task<Playlist> AddAsync(Playlist entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Playlists.Add(entity);
+            await _dbContext.SaveChangesAsync();
+            return entity;
         }
 
         public Task DeleteAsync(Domain.Entities.Playlist entity)
@@ -45,5 +48,65 @@ namespace ChinHookInfranstructure.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Playlist GetUserPlayListByName(string name, string userId)
+        {
+            return _dbContext.Playlists.Where(p => p.UserPlaylists.Any(up => up.UserId == userId && up.Playlist.Name == name)).FirstOrDefault();
+        }
+
+        public async Task<bool> SavePlayList(string userId,long playListId) {
+            try
+            {
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public async Task<bool> SavePlayListTracksAsync(Playlist entity, bool isNewPlayList)
+        {
+            try
+            {
+                if (isNewPlayList)
+                {
+                    var playList = new Playlist { PlaylistId = entity.PlaylistId+1, Name = entity.Name };
+                    var tracks = entity.Tracks.FirstOrDefault();
+                    Track trk = _dbContext.Tracks?.FirstOrDefault(s => s.TrackId == entity.Tracks.FirstOrDefault().TrackId);
+                    playList.Tracks.Add(trk);
+                    _dbContext.Add(playList);
+                   await _dbContext.SaveChangesAsync();
+                }
+                else
+                {
+                    Playlist playList = _dbContext.Playlists.FirstOrDefault(x => x.PlaylistId == entity.PlaylistId);
+                    if (playList != null) {
+
+                        Track trk = _dbContext.Tracks?.FirstOrDefault(s => s.TrackId == entity.Tracks.FirstOrDefault().TrackId);
+                        playList.Tracks.Add(trk);
+                        //_dbContext.Add(playList);
+                        await _dbContext.SaveChangesAsync();
+                    }
+                }
+
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                return false;
+            }
+        }
+
+        public async Task<List<Playlist>> GetUserPlayListAsync(string userId)
+        {
+            return await _dbContext.Playlists.Where(p => p.UserPlaylists.Any(up => up.UserId == userId)).ToListAsync();
+        }
+
+
     }
 }
