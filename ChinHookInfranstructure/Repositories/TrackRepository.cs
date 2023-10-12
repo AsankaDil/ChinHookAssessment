@@ -1,5 +1,4 @@
-﻿using Application.ClientModels;
-using Application.Repositories;
+﻿using Application.Repositories;
 using ChinHookInfranstructure.Context;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -39,7 +38,7 @@ namespace ChinHookInfranstructure.Repositories
 
         public async Task<List<Track>> GetTracksWithAlbumsAsync()
         {
-            return await _dbContext.Tracks.Include(a => a.Album).ToListAsync();
+            return await _dbContext.Tracks.Include(p=>p.Playlists).ThenInclude(p => p.UserPlaylists).Include(a => a.Album).ToListAsync();
         }
 
         public Task<Track> GetByIdAsync(long id)
@@ -84,6 +83,28 @@ namespace ChinHookInfranstructure.Repositories
                 throw;
             }
             
+        }
+
+        public async Task<bool> SetToUnfavouriteAsync(long trackId)
+        {
+            try
+            {
+                Playlist playList = _dbContext.Playlists.FirstOrDefault(x => x.Name == "Favorites");
+                if (playList != null)
+                {
+                    Track trk = playList.Tracks.FirstOrDefault(x => x.TrackId == trackId);
+                    playList.Tracks.Remove(trk);
+                    await _dbContext.SaveChangesAsync();
+                }
+                
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                throw;
+            }
+
         }
 
         private void AddUserPlayList(string userId, long maxPlayListId)

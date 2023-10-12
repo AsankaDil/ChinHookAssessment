@@ -12,5 +12,6 @@ namespace Application.Repositories
         Task<List<Track>> GetTracksWithAlbumsAsync();
         Task<bool> SaveTrackToPlayListAsync(string userId, long trackId, string playListName);
         Task<List<Track>> GetFavouriteTracksAsync(string userId);
+        Task<bool> SetToUnfavouriteAsync(long trackId);
     }
 }
