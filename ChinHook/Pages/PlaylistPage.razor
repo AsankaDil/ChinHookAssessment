@@ -74,6 +74,9 @@ else
     [Inject]
     public IPlayListRepository playListRepository { get; set; }
 
+    [Inject]
+    private ITrackRepository trackRepository { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         CurrentUserId = await GetUserId();
@@ -105,12 +108,14 @@ else
     private void FavoriteTrack(long trackId)
     {
         var track = Playlist.Tracks.FirstOrDefault(t => t.TrackId == trackId);
+        trackRepository.SaveTrackToPlayListAsync(CurrentUserId, trackId, "Favorites");
         InfoMessage = $"Track {track.ArtistName} - {track.AlbumTitle} - {track.TrackName} added to playlist Favorites.";
     }
 
     private void UnfavoriteTrack(long trackId)
     {
         var track = Playlist.Tracks.FirstOrDefault(t => t.TrackId == trackId);
+        trackRepository.SetToUnfavouriteAsync(trackId);
         InfoMessage = $"Track {track.ArtistName} - {track.AlbumTitle} - {track.TrackName} removed from playlist Favorites.";
     }
 

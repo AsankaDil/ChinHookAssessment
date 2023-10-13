@@ -4,6 +4,7 @@
 @using ChinHook.Shared.Components;
 @using Domain.Entities;
 @using System.Security.Claims;
+@inject NavigationManager NavigationManager;
 
 @if (!string.IsNullOrWhiteSpace(InfoMessage))
 {
@@ -128,6 +129,7 @@ else
         var track = Tracks.FirstOrDefault(t => t.TrackId == trackId);
         trackRepository.SetToUnfavouriteAsync(trackId);
         InfoMessage = $"Track {track.ArtistName} - {track.AlbumTitle} - {track.TrackName} removed from playlist Favorites.";
+        NavigationManager.NavigateTo("/artist/" + ArtistId, true);
     }
 
     public async void OpenPlaylistDialog(long trackId)
@@ -151,6 +153,7 @@ else
         trackRepository.SaveTrackToPlayListAsync(CurrentUserId, SelectedTrack.TrackId, NewPlayListName);
         InfoMessage = $"Track {Artist.Name} - {SelectedTrack.AlbumTitle} - {SelectedTrack.TrackName} added to playlist {{playlist name}}.";
         PlaylistDialog.Close();
+        NavigationManager.NavigateTo("/", true);
     }
 
     public void CloseInfoMessage()

@@ -59,7 +59,7 @@ namespace ChinHookInfranstructure.Repositories
                 long maxPlayListId = _dbContext.Playlists.Max(x => x.PlaylistId);
                 maxPlayListId = maxPlayListId > 0 ? maxPlayListId : 1;
                 Domain.Entities.Playlist plyList = new Domain.Entities.Playlist();
-                if (result != null)
+                if (result != null && playListName!="")
                 {
                  
                     plyList.PlaylistId = result.PlaylistId;

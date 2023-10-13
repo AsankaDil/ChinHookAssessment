@@ -39,7 +39,7 @@ namespace ChinHookInfranstructure.Repositories
 
         public async Task<Playlist> GetByIdAsync(long id)
         {
-            return await _dbContext.Playlists
+            return await _dbContext.Playlists.Include(a=>a.UserPlaylists)
            .Include(a => a.Tracks).ThenInclude(a => a.Album).ThenInclude(a => a.Artist)
            .FirstAsync(p => p.PlaylistId == id);
         }
